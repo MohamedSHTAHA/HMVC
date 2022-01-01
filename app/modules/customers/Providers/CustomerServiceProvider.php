@@ -2,6 +2,7 @@
 
 namespace Customers\Providers;
 
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,10 +27,13 @@ class CustomerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        config(['customers' => File::getRequire(base_path('app/modules/customers/config/route.php'))]);
+
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('app/modules/customers/routes/web.php'));
         //$ds = DIRECTORY_SEPARATOR;
         //$this->loadRoutesFrom(__DIR__ . $ds . '..' . $ds . 'routes' . $ds . 'web.php');
+
     }
 }
