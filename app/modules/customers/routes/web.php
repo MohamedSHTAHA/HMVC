@@ -13,10 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('')->group(function () {
+    Route::namespace('BackEnd')->prefix('backend')->group(function () {
+        Route::get('home', 'CustomerController@index');
+    });
+    Route::namespace('FrontEnd')->prefix('frontend')->group(function () {
+        Route::get('home', 'CustomerController@index');
+    });
 });
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('customers', [Customers\Http\Controllers\BackEnd\CustomerController::class, 'index']);
