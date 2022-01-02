@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -37,6 +38,8 @@ class CustomerServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('app/modules/customers/routes/web.php'));
         View::addNamespace('customers', base_path('app/modules/customers/resources/views')); // view('customers::backend.index')
+        Lang::addNamespace('customers', base_path('app/modules/customers/resources/lang'));
+
 
         $this->loadMigrationsFrom(base_path('app/modules/customers/database/migrations'));
 
@@ -46,10 +49,12 @@ class CustomerServiceProvider extends ServiceProvider
 
 
         //View::addLocation(base_path('app/modules/customers/resources/views')); // view('backend.index')
-        //$ds = DIRECTORY_SEPARATOR;
+        $ds = DIRECTORY_SEPARATOR;
         //$this->loadRoutesFrom(__DIR__ . $ds . '..' . $ds . 'routes' . $ds . 'web.php');
         //$this->loadViewsFrom(__DIR__ . $ds . '..' . $ds . 'resources' . $ds . 'views' , 'customers');
         //$this->loadMigrationsFrom(__DIR__ . $ds . '..' . $ds . 'database'.$ds.'migrations');
+        //$this->loadTranslationsFrom(__DIR__ . $ds . '..' . $ds . 'resources' .$ds.'lang' , 'customers');
+
 
     }
 }
