@@ -32,13 +32,14 @@ class CustomerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        config(['customers' => File::getRequire(base_path('app/modules/customers/config/route.php'))]);
+        $moduleName = basename(dirname(__DIR__,1));
+        config([$moduleName => File::getRequire(base_path('app/modules/customers/config/route.php'))]);
 
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('app/modules/customers/routes/web.php'));
-        View::addNamespace('customers', base_path('app/modules/customers/resources/views')); // view('customers::backend.index')
-        Lang::addNamespace('customers', base_path('app/modules/customers/resources/lang'));
+        View::addNamespace($moduleName, base_path('app/modules/customers/resources/views')); // view('customers::backend.index')
+        Lang::addNamespace($moduleName, base_path('app/modules/customers/resources/lang'));
 
 
         $this->loadMigrationsFrom(base_path('app/modules/customers/database/migrations'));
@@ -49,7 +50,7 @@ class CustomerServiceProvider extends ServiceProvider
 
 
         //View::addLocation(base_path('app/modules/customers/resources/views')); // view('backend.index')
-        $ds = DIRECTORY_SEPARATOR;
+        //$ds = DIRECTORY_SEPARATOR;
         //$this->loadRoutesFrom(__DIR__ . $ds . '..' . $ds . 'routes' . $ds . 'web.php');
         //$this->loadViewsFrom(__DIR__ . $ds . '..' . $ds . 'resources' . $ds . 'views' , 'customers');
         //$this->loadMigrationsFrom(__DIR__ . $ds . '..' . $ds . 'database'.$ds.'migrations');
