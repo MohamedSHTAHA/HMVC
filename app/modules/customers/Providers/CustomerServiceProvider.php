@@ -2,7 +2,9 @@
 
 namespace Customers\Providers;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
@@ -37,6 +39,11 @@ class CustomerServiceProvider extends ServiceProvider
         View::addNamespace('customers', base_path('app/modules/customers/resources/views')); // view('customers::backend.index')
 
         $this->loadMigrationsFrom(base_path('app/modules/customers/database/migrations'));
+
+        Artisan::call('db:seed', [
+            '--class' => 'Customers\database\seeders\DatabaseSeeder'
+        ]);
+
 
         //View::addLocation(base_path('app/modules/customers/resources/views')); // view('backend.index')
         //$ds = DIRECTORY_SEPARATOR;
