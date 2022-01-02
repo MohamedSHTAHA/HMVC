@@ -21,7 +21,7 @@ Route::prefix('')->group(function () {
     });
     Route::namespace('FrontEnd')->prefix(config('customers.prefix.frontend', config('module.prefix.frontend')))->group(function () {
         Route::prefix(config('customers.prefix.module-name'))->group(function () {
-
+            Route::get('home', 'CustomerController@index');
         });
     });
 });
